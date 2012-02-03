@@ -1,0 +1,54 @@
+<div id="wrapper">
+<div id="title_bar1">
+<div id="titlebar_left">
+  <h2 id="page_title">KVRBLOGSPOT.COM</h2>
+</div>
+<div id="titlebar_right"></div>
+</div>
+
+<div style="padding:25px 30px;">
+        <div style="font-size:14px;">
+               <%= link_to "Back to Bloglist", blogs_path %>
+        </div>
+        <br/>
+        <table style="background:#FFEABC;">
+                <tr>
+                        <td  style="color:blue; font-size:14px;"><u><%= @post.title %></u></td>
+                        <td style="text-align:right;">Posted At: <%= @post.created_at.strftime('%Y-%b-%d')  %></td>
+                </tr>
+                <tr>
+                        <td colspan="2" style="line-height: 200%;font-family:comic sans ms;font-size:14px; padding-right:300px;padding-left:10px;"><%= @post.post %></td>
+                </tr>
+        </table>
+        <table  style="background:#FFEABC;">
+                <caption style="color:blue; font-size:14px;"><u>Shoot A Comment:</u> </caption>
+                <tr>
+                        <td>
+                                <% form_for :commenting,@comment, :url=>{:action=>"create"}, :remote => true do |f| %>
+                                        <%= f.text_area :comment_posted, :size=>"30"%>
+                                         <%#= ckeditor_textarea("commenting", "comment_post") %>
+                                        <%= f.hidden_field :blog_id, :value=> @post.id%></br>
+                                        <%= f.submit "Post"%>
+                                <%end%>
+                        </td>
+                </tr>
+        </table>
+        <h4><b><u>Comment List</u></b></h4>
+        <div id='commentlist'>
+                <table>
+                     <% if @comments.length > 0%>
+                        <% @comments.each do |c|%>
+                        <tr>
+                                <td><%= c.created_at.strftime('%Y-%b-%d') %></td>
+                        </tr>
+                        <tr>
+                                <td><%= c.comment_posted %></td>
+                        </tr>
+                        <%end%>
+                    <%else%>
+                        <h4> No comments posted yet for this blog... </h4>
+                    <%end%>
+        </table>
+</div>
+</div>
+

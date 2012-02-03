@@ -1,0 +1,40 @@
+<div id="wrapper">
+<div id="title_bar1">
+<div id="titlebar_left">
+  <h2 id="page_title">KVRBLOGSPOT.COM</h2>
+</div>
+<div id="titlebar_right"></div>
+</div>
+<div class="panel" style="padding:25px 30px;">
+        <h3>Blog Details</h3>
+        <div class="panel_contents">
+        <table width="700px">
+                <% @posts.each do |p|%>
+                <tr class="<%= cycle('even','odd')%>">
+                        <td  style="font-size:16px;">
+                           <%= link_to p.title, "/blogs/#{p.id}" %>
+                            <span style="font-size:10px;">
+                              <%= image_tag("/images/images.jpeg")%> Read more...
+                            </span>
+                        </td>
+                        <td style="text-align:right;">
+                           Posted On: <%= p.created_at.strftime('%Y-%b-%d') %>
+                        </td>
+                </tr>
+                <tr class="<%= cycle('even','odd')%>">
+                        <td colspan="2" style="line-height: 200%;font-family:comic sans ms;font-size:14px; padding-right:300px;padding-left:10px;">
+                           <%= p.post.truncate(200) %>
+                        </td>
+                </tr>
+                <%end%>
+        </table>
+        <table>
+                <tr>
+                        <td>
+                                <%= paginate @posts %>
+                        </td>
+                </tr>
+        </table>
+        </div>
+</div>
+
